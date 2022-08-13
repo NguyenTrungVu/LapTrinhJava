@@ -14,9 +14,18 @@ Software Foundation//DTD Tiles Configuration 3.0//EN"
                        value="/WEB-INF/layout/footer.jsp" />
     </definition>
     <definition name="home" extends="baseLayout">
-        <put-attribute name="title" value="Trang chủ" />
+        <put-attribute name="title" value="Trang chu" />
         <put-attribute name="content"
                        value="/WEB-INF/jsp/home.jsp" />
     </definition>
-    
+     <definition name="login" extends="baseLayout">
+        <put-attribute name="title" value="Dang Nhap" />
+        <put-attribute name="content"
+                       value="/WEB-INF/jsp/login.jsp" />
+    </definition>
+     <definition name="register" extends="baseLayout">
+        <put-attribute name="title" value="Dang Ky" />
+        <put-attribute name="content"
+                       value="/WEB-INF/jsp/register.jsp" />
+    </definition>
 </tiles-definitions>

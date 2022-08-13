@@ -53,8 +53,24 @@ CREATE TABLE `Expense` (
 -- Dumping data for table `tblexpense`
 --
 
--- INSERT INTO `tblexpense` (`ID`, `UserId`, `ExpenseDate`, `ExpenseItem`, `ExpenseCost`, `NoteDate`) VALUES
--- (1, 2, '2019-05-15', 'Milk', '63', NULL),
+insert into `UserRole`(`ID`, `RoleName`) values 
+(2, 'Leader'),
+(3, 'Member'); 
+
+insert into `ExpenseItem` (`ID`,`ItemName`) values
+(1, 'Food & Drink'),
+(2, 'Shopping'),
+(3, 'Transportation'),
+(4,'Rentals'),
+(5, 'Water Bill'),
+(6, 'Phone Bill'),
+(7, 'Internet Bill'),
+(8,'Education'),
+(9, 'Insurances'),
+(10, 'Gifts & Donations');
+
+-- INSERT INTO `Expense` (`ID`, `UserId`, `ExpenseDate`, `ExpenseItem`, `ExpenseCost`, `NoteDate`) VALUES
+-- (1, 2, '2019-05-15', '1', '63', NULL),
 -- (2, 2, '2019-05-15', 'Vegitables', '520', '2019-05-15 10:06:19'),
 -- (3, 2, '2019-05-15', 'Household Items', '5200', '2019-05-15 10:07:08'),
 -- (4, 2, '2019-05-14', 'Milk', '83', '2019-05-15 10:07:27'),
@@ -102,14 +118,29 @@ CREATE TABLE `Users` (
   foreign key(Position) references UserRole(ID)
 ) ;
 
+create table `IncomeSource`(
+	`ID` int(10) not null,
+    `InSource` varchar (150) default null
+);
+
+CREATE TABLE `Income` (
+  `ID` int(10) NOT NULL,
+  `UserId` int(10) NOT NULL,
+  `IncomeDate` date DEFAULT NULL,
+  `IncomeItem` int(10) DEFAULT NULL,
+  `IncomeCost` varchar(200) DEFAULT NULL,
+  `NoteDate` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  foreign key(UserId) references Users(ID),
+  foreign key (IncomeItem) references IncomeSource(ID)
+) ;
 --
 -- Dumping data for table `tbluser`
 --
 
--- INSERT INTO `Users` (`ID`, `FullName`, `Email`, `MobileNumber`, `Password`, `RegDate`) VALUES
--- (1, 'Rajeshwari', 'raj@gmail.com', 5655555655, '202cb962ac59075b964b07152d234b70', '2019-05-15 08:52:27'),
--- (2, 'Meenakhi', 'meena@gmail.com', 8989898897, '81dc9bdb52d04dc20036dbd8313ed055', '2019-05-15 08:52:27'),
--- (3, 'Khusbu', 'khusi@gmail.com', 5645798897, '202cb962ac59075b964b07152d234b70', '2019-05-15 08:52:27'),
+-- INSERT INTO `Users` (`ID`, `FullName`,`Position` `Email`, `MobileNumber`, `Password`, `RegDate`) VALUES
+-- (1, 'Admin',``, 'admin@gmail.com', 5655555655, '', '2019-05-15 08:52:27'),
+-- (2, 'Nguyễn Trung Vũ', 'a@gmail.com', 8989898897, '81dc9bdb52d04dc20036dbd8313ed055', '2019-05-15 08:52:27'),
+-- (3, '', 'khusi@gmail.com', 5645798897, '202cb962ac59075b964b07152d234b70', '2019-05-15 08:52:27'),
 -- (4, 'Shantanu Bhardwaj', 'shan@gmail.com', 7895641236, '202cb962ac59075b964b07152d234b70', '2019-05-17 05:13:23'),
 -- (8, 'Test', 'test@gmail.com', 5656556565, '202cb962ac59075b964b07152d234b70', '2019-05-17 05:34:16'),
 -- (9, 'Anuj kumar', 'phpgurukulofficial@gmail.com', 1234567890, 'f925916e2754e5e03f75dd58a5733251', '2019-05-18 05:31:47'),
@@ -137,6 +168,12 @@ ALTER TABLE `Users`
   ALTER TABLE `ExpenseItem`
   ADD PRIMARY KEY (`ID`);
 
+ALTER TABLE `IncomeSource`
+  ADD PRIMARY KEY (`ID`);
+  
+  ALTER TABLE `Income`
+  ADD PRIMARY KEY (`ID`);
+
 --
 -- AUTO_INCREMENT for dumped tables
 --
@@ -151,6 +188,12 @@ ALTER TABLE `ExpenseItem`
   MODIFY `ID` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 
 ALTER TABLE `UserRole`
+  MODIFY `ID` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
+  
+ALTER TABLE `IncomeSource`
+  MODIFY `ID` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
+
+ALTER TABLE `Income`
   MODIFY `ID` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 
 --

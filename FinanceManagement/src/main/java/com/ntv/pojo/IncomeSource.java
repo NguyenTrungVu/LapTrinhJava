@@ -25,13 +25,13 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author inmac
  */
 @Entity
-@Table(name = "UserRole")
+@Table(name = "IncomeSource")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "UserRole.findAll", query = "SELECT u FROM UserRole u"),
-    @NamedQuery(name = "UserRole.findById", query = "SELECT u FROM UserRole u WHERE u.id = :id"),
-    @NamedQuery(name = "UserRole.findByRoleName", query = "SELECT u FROM UserRole u WHERE u.roleName = :roleName")})
-public class UserRole implements Serializable {
+    @NamedQuery(name = "IncomeSource.findAll", query = "SELECT i FROM IncomeSource i"),
+    @NamedQuery(name = "IncomeSource.findById", query = "SELECT i FROM IncomeSource i WHERE i.id = :id"),
+    @NamedQuery(name = "IncomeSource.findByInSource", query = "SELECT i FROM IncomeSource i WHERE i.inSource = :inSource")})
+public class IncomeSource implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -39,16 +39,16 @@ public class UserRole implements Serializable {
     @Basic(optional = false)
     @Column(name = "ID")
     private Integer id;
-    @Size(max = 20)
-    @Column(name = "RoleName")
-    private String roleName;
-    @OneToMany(mappedBy = "position")
-    private Set<Users> usersSet;
+    @Size(max = 150)
+    @Column(name = "InSource")
+    private String inSource;
+    @OneToMany(mappedBy = "incomeItem")
+    private Set<Income> incomeSet;
 
-    public UserRole() {
+    public IncomeSource() {
     }
 
-    public UserRole(Integer id) {
+    public IncomeSource(Integer id) {
         this.id = id;
     }
 
@@ -60,21 +60,21 @@ public class UserRole implements Serializable {
         this.id = id;
     }
 
-    public String getRoleName() {
-        return roleName;
+    public String getInSource() {
+        return inSource;
     }
 
-    public void setRoleName(String roleName) {
-        this.roleName = roleName;
+    public void setInSource(String inSource) {
+        this.inSource = inSource;
     }
 
     @XmlTransient
-    public Set<Users> getUsersSet() {
-        return usersSet;
+    public Set<Income> getIncomeSet() {
+        return incomeSet;
     }
 
-    public void setUsersSet(Set<Users> usersSet) {
-        this.usersSet = usersSet;
+    public void setIncomeSet(Set<Income> incomeSet) {
+        this.incomeSet = incomeSet;
     }
 
     @Override
@@ -87,10 +87,10 @@ public class UserRole implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof UserRole)) {
+        if (!(object instanceof IncomeSource)) {
             return false;
         }
-        UserRole other = (UserRole) object;
+        IncomeSource other = (IncomeSource) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -99,7 +99,7 @@ public class UserRole implements Serializable {
 
     @Override
     public String toString() {
-        return "com.ntv.pojo.UserRole[ id=" + id + " ]";
+        return "com.ntv.pojo.IncomeSource[ id=" + id + " ]";
     }
     
 }

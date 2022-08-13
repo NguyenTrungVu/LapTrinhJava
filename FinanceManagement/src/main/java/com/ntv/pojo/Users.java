@@ -23,10 +23,13 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import org.eclipse.persistence.internal.expressions.ManualQueryKeyExpression;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  *
@@ -44,6 +47,16 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Users.findByPassword", query = "SELECT u FROM Users u WHERE u.password = :password"),
     @NamedQuery(name = "Users.findByRegDate", query = "SELECT u FROM Users u WHERE u.regDate = :regDate")})
 public class Users implements Serializable {
+    public static final String LEADER = "ROLE_LEADER";
+    public static final String ADMIN = "ROLE_ADMIN";
+    public static final String MEMBER = "ROLE_MEMBER";
+    
+    @Size(max = 255)
+    @Column(name = "Avatar")
+    private String avatar;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "userId")
+    private Set<Income> incomeSet;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -72,8 +85,15 @@ public class Users implements Serializable {
     private Set<Expense> expenseSet;
     @JoinColumn(name = "Position", referencedColumnName = "ID")
     @ManyToOne
-    private UserRole position;
-
+    @Size(max = 20)
+    @Column(name="UserRole")
+    private String userRole;
+   
+    @Transient
+    private MultipartFile file;
+    @Transient
+    private String comfirmPassword;
+    
     public Users() {
     }
 
@@ -143,14 +163,7 @@ public class Users implements Serializable {
         this.expenseSet = expenseSet;
     }
 
-    public UserRole getPosition() {
-        return position;
-    }
-
-    public void setPosition(UserRole position) {
-        this.position = position;
-    }
-
+   
     @Override
     public int hashCode() {
         int hash = 0;
@@ -174,6 +187,65 @@ public class Users implements Serializable {
     @Override
     public String toString() {
         return "com.ntv.pojo.Users[ id=" + id + " ]";
+    }
+
+    @XmlTransient
+    public Set<Income> getIncomeSet() {
+        return incomeSet;
+    }
+
+    public void setIncomeSet(Set<Income> incomeSet) {
+        this.incomeSet = incomeSet;
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
+    }
+
+    /**
+     * @return the file
+     */
+    public MultipartFile getFile() {
+        return file;
+    }
+
+    /**
+     * @param file the file to set
+     */
+    public void setFile(MultipartFile file) {
+        this.file = file;
+    }
+
+    /**
+     * @return the userRole
+     */
+    public String getUserRole() {
+        return userRole;
+    }
+
+    /**
+     * @param userRole the userRole to set
+     */
+    public void setUserRole(String userRole) {
+        this.userRole = userRole;
+    }
+
+    /**
+     * @return the comfirmPassword
+     */
+    public String getComfirmPassword() {
+        return comfirmPassword;
+    }
+
+    /**
+     * @param comfirmPassword the comfirmPassword to set
+     */
+    public void setComfirmPassword(String comfirmPassword) {
+        this.comfirmPassword = comfirmPassword;
     }
     
 }
