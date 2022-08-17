@@ -25,10 +25,12 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 import org.eclipse.persistence.internal.expressions.ManualQueryKeyExpression;
+import org.hibernate.validator.constraints.UniqueElements;
 import org.springframework.web.multipart.MultipartFile;
 
 /**
@@ -51,9 +53,7 @@ public class Users implements Serializable {
     public static final String ADMIN = "ROLE_ADMIN";
     public static final String MEMBER = "ROLE_MEMBER";
     
-    @Size(max = 255)
-    @Column(name = "Avatar")
-    private String avatar;
+   
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "userId")
     private Set<Income> incomeSet;
@@ -64,10 +64,12 @@ public class Users implements Serializable {
     @Basic(optional = false)
     @Column(name = "ID")
     private Integer id;
+    
     @Size(max = 150)
     @Column(name = "FullName")
     private String fullName;
-    // @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Invalid email")//if the field contains email address consider using this annotation to enforce field validation
+    @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Invalid email")//if the field contains email address consider using this annotation to enforce field validation
+    
     @Size(max = 200)
     @Column(name = "Email")
     private String email;
@@ -77,18 +79,20 @@ public class Users implements Serializable {
     @Column(name = "Password")
     private String password;
     @Basic(optional = false)
-    @NotNull
+    
     @Column(name = "RegDate")
     @Temporal(TemporalType.TIMESTAMP)
     private Date regDate;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "userId")
     private Set<Expense> expenseSet;
-    @JoinColumn(name = "Position", referencedColumnName = "ID")
-    @ManyToOne
+  
     @Size(max = 20)
     @Column(name="UserRole")
     private String userRole;
-   
+    
+    @Size(max = 255)
+    @Column(name = "Avatar")
+    private String avatar;
     @Transient
     private MultipartFile file;
     @Transient

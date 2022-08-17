@@ -33,34 +33,37 @@
                         </c:forEach>
                     </ul>
                 </li>
-                <c:choose>
-                    <c:when test="${pageContext.request.userPrincipal.name == null}">
-                        <li>
-                            <a class="nav-link" href="<c:url value="/register" />">
-                                <i class="fa-solid fa-user"></i>Dang Ky
-                            </a>
-                        </li>
-                        <li>
-                            <a class="nav-link" href="<c:url value="/login" />">Dang Nhap</a>
-                        </li>
-                    </c:when>
-                    <c:when test="${pageContext.request.userPrincipal.name != null}">
-                        <li>
-                            <a class="nav-link" href="<c:url value="/"/>">
-                                <c:if test="${currentUser.avatar}!= null">
-                                    <img src="${currentUser.avatar}" class="img-fluid"/>
-                                </c:if>
-                                <c:if test="${currentUser.avatar} == null">
-                                    <i class="fa-solid fa-user"></i>
-                                </c:if>
-                                ${pageContext.request.userPrincipal.name}
-                            </a>
-                        </li>
-                        <li>
-                            <a class="nav-link" href="<c:url value="/logout" />">Logout</a>
-                        </li>
-                    </c:when>
-                </c:choose>
+
+                <c:if test="${pageContext.request.userPrincipal.name == null}">
+                    <li class="nav-item">
+                        <a class="nav-link" href="<c:url value="/register" />">
+                            <i class="fa fa-user"></i></i> Dang Ky
+                        </a>
+                    </li>
+                    <li>
+                        <a class="nav-link" href="<c:url value="/login" />">
+                            <i class="fa fa-user-check"></i> Dang Nhap</a>
+                    </li>
+                </c:if>
+                <c:if test="${pageContext.request.userPrincipal.name != null}">
+                    <li class="nav-item">
+                        <a class="nav-link" href="<c:url value="/"/>">
+                           <c:if test="${currentUser.avatar != null}">
+                               <img src="${currentUser.avatar}" style="width:20px;" class="rounded-circle"/>
+                           </c:if>
+                           <c:if test="${currentUser.avatar  == null}">
+                               <i class="fa fa-user-check" ></i>
+                           </c:if>
+
+
+                           ${pageContext.request.userPrincipal.name}
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="<c:url value="/logout" />">Logout</a>
+                    </li>
+                </c:if>
+
 
             </ul>
             <form class="d-flex">
