@@ -26,7 +26,7 @@ public class LoginSuccessHander implements AuthenticationSuccessHandler{
     
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication a) throws IOException, ServletException {
-        Users u = this.userDetailService.getUserByUsername(a.getName()).get(0);
+        Users u = this.userDetailService.getUserByUsername(a.getName());
         request.getSession().setAttribute("currentUser", u);
         response.sendRedirect("/FinanceManagement");
     }

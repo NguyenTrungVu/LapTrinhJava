@@ -44,7 +44,7 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
-    public List<Users> getUsers(String name) {
+    public Users getUsers(String name) {
         Session session = this.sessionFactory.getObject().getCurrentSession();
         CriteriaBuilder b = session.getCriteriaBuilder();
         CriteriaQuery<Users> q = b.createQuery(Users.class);
@@ -56,7 +56,9 @@ public class UserRepositoryImpl implements UserRepository {
             q = q.where(p);
         }
         Query query = session.createQuery(q);
-        return query.getResultList();
+        return (Users) query.getSingleResult();
     }
+
+    
 
 }

@@ -37,7 +37,7 @@
                 <c:if test="${pageContext.request.userPrincipal.name == null}">
                     <li class="nav-item">
                         <a class="nav-link" href="<c:url value="/register" />">
-                            <i class="fa fa-user"></i></i> Dang Ky
+                            <i class="fa-solid fa-user-plus"></i> Dang Ky
                         </a>
                     </li>
                     <li>

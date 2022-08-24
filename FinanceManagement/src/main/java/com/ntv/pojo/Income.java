@@ -36,6 +36,11 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Income.findByNoteDate", query = "SELECT i FROM Income i WHERE i.noteDate = :noteDate")})
 public class Income implements Serializable {
 
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "IncomeCost")
+    private long incomeCost;
+
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -45,9 +50,6 @@ public class Income implements Serializable {
     @Column(name = "IncomeDate")
     @Temporal(TemporalType.DATE)
     private Date incomeDate;
-    @Size(max = 200)
-    @Column(name = "IncomeCost")
-    private String incomeCost;
     @Column(name = "NoteDate")
     @Temporal(TemporalType.TIMESTAMP)
     private Date noteDate;
@@ -81,13 +83,6 @@ public class Income implements Serializable {
         this.incomeDate = incomeDate;
     }
 
-    public String getIncomeCost() {
-        return incomeCost;
-    }
-
-    public void setIncomeCost(String incomeCost) {
-        this.incomeCost = incomeCost;
-    }
 
     public Date getNoteDate() {
         return noteDate;
@@ -136,6 +131,14 @@ public class Income implements Serializable {
     @Override
     public String toString() {
         return "com.ntv.pojo.Income[ id=" + id + " ]";
+    }
+
+    public long getIncomeCost() {
+        return incomeCost;
+    }
+
+    public void setIncomeCost(long incomeCost) {
+        this.incomeCost = incomeCost;
     }
     
 }

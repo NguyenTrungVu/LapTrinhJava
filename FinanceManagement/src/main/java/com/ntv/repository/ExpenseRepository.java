@@ -4,15 +4,17 @@
  */
 package com.ntv.repository;
 
-import com.ntv.pojo.Users;
+import com.ntv.pojo.Expense;
 import java.util.List;
+import java.util.Map;
 
 /**
  *
  * @author inmac
  */
-public interface UserRepository {
-    boolean addUser(Users user);
-    Users getUsers(String name);
-    
+public interface ExpenseRepository {
+    List<Expense> getExpense(Map<String, String> params, int page);
+    boolean deleteExpenseBill(int id);
+    Expense getExpenseById(int expenseId);
+    boolean addExpense(Expense e);
 }
