@@ -17,6 +17,9 @@
         </a>
     </div>
 </sec:authorize>--%>
+
+
+<script src="<c:url value="/resources/js/toggle-button.js"/>"></script>
 <div class="row">
     <div class="col-md-3">
         <div id="accordion">
@@ -24,7 +27,9 @@
                 <div class="card-header" style="position: relative">
                     <a class="btn" data-bs-toggle="collapse" href="#collapseOne">
                         Expense
-
+                    </a>
+                    <a class="btn" href="<c:url value="/stats"/>">
+                        Detail
                     </a>
                     <c:if test="${pageContext.request.userPrincipal.name == null}">
                         
@@ -38,38 +43,31 @@
 
                 </div>
                 <div></div>
-                <div id="collapseOne" class="collapse show" data-bs-parent="#accordion">
-                    <div class="card-body">
-                        <input type="button" class="btn btn-toggle" value="Month">
-                        <input type="button" class="btn" value="Year">
-                    </div>
-                </div>
+                
             </div>
             <div class="card">
                 <div class="card-header">
                     <a class="collapsed btn" data-bs-toggle="collapse" href="#collapseTwo">
                         Income
                     </a>
-                    <a href="<c:url value="/bill/addExpense"/>" class="btn" style=" position: absolute; right: -27px;top: 8px; z-index: 1; font-size: 30px; color: green"><i class="fa-solid fa-circle-plus"></i></a>
+                    <a class="btn" data-bs-toggle="collapse" href="<c:url value="/stats"/>">
+                        Detail
+                    </a>
+                    <a href="<c:url value="/addExpense"/>" class="btn" style=" position: absolute; right: -27px;top: 8px; z-index: 1; font-size: 30px; color: green"><i class="fa-solid fa-circle-plus"></i></a>
 
                 </div>
-                <div id="collapseTwo" class="collapse" data-bs-parent="#accordion">
-                    <div class="card-body">
-                        <input type="button" class="btn btn-toggle" value="Month">
-                        <input type="button" class="btn" value="Year">
-                    </div>
-                </div>
+                
             </div>
         </div>
     </div>
     <div class="col-md-9">
         <div class="container">
             <section>
-                <h1>Thong ke theo thoi gian</h1>
+                <h1>Total Income</h1>
 
             </section>
             <section>
-                <h1>Thong ke theo danh muc</h1>
+                <h1>Total Expense</h1>
             </section>
 
         </div>
