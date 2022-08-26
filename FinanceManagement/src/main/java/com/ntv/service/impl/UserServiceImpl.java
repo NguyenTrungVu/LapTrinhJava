@@ -10,6 +10,7 @@ import com.ntv.pojo.Users;
 import com.ntv.repository.UserRepository;
 import com.ntv.service.UserService;
 import java.io.IOException;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -43,6 +44,7 @@ public class UserServiceImpl implements UserService {
     public boolean addUser(Users user) {
         try {
             String pass = user.getPassword();
+            user.setRegDate(new Date());
             user.setPassword(this.passwordEncoder.encode(pass));
             user.setUserRole(Users.MEMBER);
             

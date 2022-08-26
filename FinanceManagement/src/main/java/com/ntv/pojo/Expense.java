@@ -4,8 +4,6 @@
  */
 package com.ntv.pojo;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Basic;
@@ -37,18 +35,9 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Expense.findById", query = "SELECT e FROM Expense e WHERE e.id = :id"),
     @NamedQuery(name = "Expense.findByExpenseDate", query = "SELECT e FROM Expense e WHERE e.expenseDate = :expenseDate"),
     @NamedQuery(name = "Expense.findByExpenseCost", query = "SELECT e FROM Expense e WHERE e.expenseCost = :expenseCost"),
-    @NamedQuery(name = "Expense.findByNoteDate", query = "SELECT e FROM Expense e WHERE e.noteDate = :noteDate")})
+    @NamedQuery(name = "Expense.findByNoteDate", query = "SELECT e FROM Expense e WHERE e.noteDate = :noteDate"),
+    @NamedQuery(name = "Expense.findByNote", query = "SELECT e FROM Expense e WHERE e.note = :note")})
 public class Expense implements Serializable {
-    @Basic(optional = false)
-    @NotNull
-    @Size(max = 255)
-    @Column(name = "Note")
-    private String note;
-
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "ExpenseCost")
-    private long expenseCost;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -59,17 +48,25 @@ public class Expense implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "ExpenseDate")
-    @Temporal(TemporalType.TIMESTAMP)
+    @Temporal(TemporalType.DATE)
     private Date expenseDate;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "ExpenseCost")
+    private long expenseCost;
     @Column(name = "NoteDate")
     @Temporal(TemporalType.TIMESTAMP)
     private Date noteDate;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 255)
+    @Column(name = "Note")
+    private String note;
     @JoinColumn(name = "ExpenseItem", referencedColumnName = "ID")
-    @ManyToOne
+    @ManyToOne(optional = false)
     private ExpenseItem expenseItem;
     @JoinColumn(name = "UserId", referencedColumnName = "ID")
     @ManyToOne(optional = false)
-    @JsonProperty("user")
     private Users userId;
 
     public Expense() {
@@ -77,6 +74,13 @@ public class Expense implements Serializable {
 
     public Expense(Integer id) {
         this.id = id;
+    }
+
+    public Expense(Integer id, Date expenseDate, long expenseCost, String note) {
+        this.id = id;
+        this.expenseDate = expenseDate;
+        this.expenseCost = expenseCost;
+        this.note = note;
     }
 
     public Integer getId() {
@@ -95,6 +99,13 @@ public class Expense implements Serializable {
         this.expenseDate = expenseDate;
     }
 
+    public long getExpenseCost() {
+        return expenseCost;
+    }
+
+    public void setExpenseCost(long expenseCost) {
+        this.expenseCost = expenseCost;
+    }
 
     public Date getNoteDate() {
         return noteDate;
@@ -102,6 +113,14 @@ public class Expense implements Serializable {
 
     public void setNoteDate(Date noteDate) {
         this.noteDate = noteDate;
+    }
+
+    public String getNote() {
+        return note;
+    }
+
+    public void setNote(String note) {
+        this.note = note;
     }
 
     public ExpenseItem getExpenseItem() {
@@ -143,22 +162,6 @@ public class Expense implements Serializable {
     @Override
     public String toString() {
         return "com.ntv.pojo.Expense[ id=" + id + " ]";
-    }
-
-    public long getExpenseCost() {
-        return expenseCost;
-    }
-
-    public void setExpenseCost(long expenseCost) {
-        this.expenseCost = expenseCost;
-    }
-
-    public String getNote() {
-        return note;
-    }
-
-    public void setNote(String note) {
-        this.note = note;
     }
     
 }

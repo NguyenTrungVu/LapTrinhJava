@@ -5,7 +5,6 @@
 package com.ntv.pojo;
 
 import java.io.Serializable;
-import java.math.BigInteger;
 import java.util.Date;
 import java.util.Set;
 import javax.persistence.Basic;
@@ -15,8 +14,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -25,12 +22,9 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
-import org.eclipse.persistence.internal.expressions.ManualQueryKeyExpression;
-import org.hibernate.validator.constraints.UniqueElements;
 import org.springframework.web.multipart.MultipartFile;
 
 /**
@@ -47,16 +41,12 @@ import org.springframework.web.multipart.MultipartFile;
     @NamedQuery(name = "Users.findByEmail", query = "SELECT u FROM Users u WHERE u.email = :email"),
     @NamedQuery(name = "Users.findByMobileNumber", query = "SELECT u FROM Users u WHERE u.mobileNumber = :mobileNumber"),
     @NamedQuery(name = "Users.findByPassword", query = "SELECT u FROM Users u WHERE u.password = :password"),
-    @NamedQuery(name = "Users.findByRegDate", query = "SELECT u FROM Users u WHERE u.regDate = :regDate")})
+    @NamedQuery(name = "Users.findByRegDate", query = "SELECT u FROM Users u WHERE u.regDate = :regDate"),
+    @NamedQuery(name = "Users.findByUserRole", query = "SELECT u FROM Users u WHERE u.userRole = :userRole")})
 public class Users implements Serializable {
     public static final String LEADER = "ROLE_LEADER";
     public static final String ADMIN = "ROLE_ADMIN";
     public static final String MEMBER = "ROLE_MEMBER";
-    
-   
-
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "userId")
-    private Set<Income> incomeSet;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -64,33 +54,32 @@ public class Users implements Serializable {
     @Basic(optional = false)
     @Column(name = "ID")
     private Integer id;
-    
     @Size(max = 150)
     @Column(name = "FullName")
     private String fullName;
-    @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Invalid email")//if the field contains email address consider using this annotation to enforce field validation
-    
+    // @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Invalid email")//if the field contains email address consider using this annotation to enforce field validation
     @Size(max = 200)
     @Column(name = "Email")
     private String email;
+    @Size(max = 10)
     @Column(name = "MobileNumber")
-    private BigInteger mobileNumber;
+    private String mobileNumber;
     @Size(max = 200)
     @Column(name = "Password")
     private String password;
     @Basic(optional = false)
-    
+    @NotNull
     @Column(name = "RegDate")
     @Temporal(TemporalType.TIMESTAMP)
     private Date regDate;
+    @Size(max = 20)
+    @Column(name = "UserRole")
+    private String userRole;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "userId")
     private Set<Expense> expenseSet;
-  
-    @Size(max = 20)
-    @Column(name="UserRole")
-    private String userRole;
-    
-    @Size(max = 255)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "userId")
+    private Set<Income> incomeSet;
+    @Size(max = 100)
     @Column(name = "Avatar")
     private String avatar;
     @Transient
@@ -98,6 +87,7 @@ public class Users implements Serializable {
     @Transient
     private String comfirmPassword;
     
+
     public Users() {
     }
 
@@ -134,11 +124,11 @@ public class Users implements Serializable {
         this.email = email;
     }
 
-    public BigInteger getMobileNumber() {
+    public String getMobileNumber() {
         return mobileNumber;
     }
 
-    public void setMobileNumber(BigInteger mobileNumber) {
+    public void setMobileNumber(String mobileNumber) {
         this.mobileNumber = mobileNumber;
     }
 
@@ -158,6 +148,14 @@ public class Users implements Serializable {
         this.regDate = regDate;
     }
 
+    public String getUserRole() {
+        return userRole;
+    }
+
+    public void setUserRole(String userRole) {
+        this.userRole = userRole;
+    }
+
     @XmlTransient
     public Set<Expense> getExpenseSet() {
         return expenseSet;
@@ -167,7 +165,15 @@ public class Users implements Serializable {
         this.expenseSet = expenseSet;
     }
 
-   
+    @XmlTransient
+    public Set<Income> getIncomeSet() {
+        return incomeSet;
+    }
+
+    public void setIncomeSet(Set<Income> incomeSet) {
+        this.incomeSet = incomeSet;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -193,19 +199,16 @@ public class Users implements Serializable {
         return "com.ntv.pojo.Users[ id=" + id + " ]";
     }
 
-    @XmlTransient
-    public Set<Income> getIncomeSet() {
-        return incomeSet;
-    }
-
-    public void setIncomeSet(Set<Income> incomeSet) {
-        this.incomeSet = incomeSet;
-    }
-
+    /**
+     * @return the avatar
+     */
     public String getAvatar() {
         return avatar;
     }
 
+    /**
+     * @param avatar the avatar to set
+     */
     public void setAvatar(String avatar) {
         this.avatar = avatar;
     }
@@ -222,20 +225,6 @@ public class Users implements Serializable {
      */
     public void setFile(MultipartFile file) {
         this.file = file;
-    }
-
-    /**
-     * @return the userRole
-     */
-    public String getUserRole() {
-        return userRole;
-    }
-
-    /**
-     * @param userRole the userRole to set
-     */
-    public void setUserRole(String userRole) {
-        this.userRole = userRole;
     }
 
     /**

@@ -6,6 +6,7 @@
 -- Generation Time: May 18, 2019 at 09:28 AM
 -- Server version: 10.1.31-MariaDB
 -- PHP Version: 7.2.3
+create database finmandb;
 use finmandb;
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
@@ -34,17 +35,18 @@ create table `UserRole` (
 );
 
 create table `ExpenseItem` (
-	`ID` int (10) not null,
+	`ID` int not null,
     `ItemName` nvarchar(50)
 );
 
 CREATE TABLE `Expense` (
-  `ID` int(10) NOT NULL,
-  `UserId` int(10) NOT NULL,
+  `ID` int ,
+  `UserId` int NOT NULL,
   `ExpenseDate` date DEFAULT NULL,
   `ExpenseItem` int(10) DEFAULT NULL,
   `ExpenseCost` Decimal DEFAULT NULL,
   `NoteDate` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `Note` varchar(255) not null,
   foreign key(UserId) references Users(ID),
   foreign key (ExpenseItem) references ExpenseItem(ID)
 ) ;
@@ -70,17 +72,17 @@ insert into `ExpenseItem` (`ID`,`ItemName`) values
 (10, 'Gifts & Donations');
 
 insert into `Expense` (`ID`, `UserId`, `ExpenseDate`, `ExpenseItem`, `ExpenseCost`, `NoteDate`) VALUES
-(1, 11, '2019-05-15', '1', '63', NULL),
-(2, 12, '2019-05-15', '2', '520', '2019-05-15 10:06:19'),
-(3, 12, '2019-05-15', '2', '5200', '2019-05-15 10:07:08'),
-(4, 12, '2019-05-14', '1', '83', '2019-05-15 10:07:27'),
-(5, 12, '2019-05-14', '3', '1120', '2019-05-15 10:07:49'),
-(6, 12, '2019-05-12', '3', '890', '2019-05-15 10:08:09'),
-(7,11, '2019-05-10', '5', '5600', '2019-05-15 10:08:26'),
-(8, 11, '2019-04-24', '5', '102', '2019-05-15 10:08:44'),
-(9, 11, '2019-05-08', '5', '890', '2019-05-15 10:08:57'),
-(10, 11, '2018-12-19', '3', '1120', '2019-05-15 10:09:34'),
-(11, 11, '2018-12-19', '2', '560', '2019-05-15 10:09:52'),
+(1, 11, '2019-05-15', '1', '63000', NULL),
+(2, 12, '2019-05-15', '2', '52000', '2019-05-15 10:06:19'),
+(3, 12, '2019-05-15', '2', '52000', '2019-05-15 10:07:08'),
+(4, 12, '2019-05-14', '1', '83000', '2019-05-15 10:07:27'),
+(5, 12, '2019-05-14', '3', '11000', '2019-05-15 10:07:49'),
+(6, 12, '2019-05-12', '3', '89000', '2019-05-15 10:08:09'),
+(7,11, '2019-05-10', '5', '56000', '2019-05-15 10:08:26'),
+(8, 11, '2019-04-24', '5', '102000', '2019-05-15 10:08:44'),
+(9, 11, '2019-05-08', '5', '89000', '2019-05-15 10:08:57'),
+(10, 11, '2018-12-19', '3', '112000', '2019-05-15 10:09:34'),
+(11, 11, '2018-12-19', '2', '56000', '2019-05-15 10:09:52'),
 (13, 11, '2018-12-20', '1', '30000', '2019-05-15 10:15:47');
 -- (14, 2, '2019-05-14', 'Milk', '360', '2019-05-15 10:21:31'),
 -- (15, 3, '2019-05-15', 'Milk', '123', '2019-05-15 10:29:56'),
@@ -107,39 +109,39 @@ insert into `Expense` (`ID`, `UserId`, `ExpenseDate`, `ExpenseItem`, `ExpenseCos
 --
 
 CREATE TABLE `Users` (
-  `ID` int(10) NOT NULL,
+  `ID` int ,
   `FullName` varchar(150) DEFAULT NULL,
-  `Position` int(10), 
   `Email` varchar(200) DEFAULT NULL,
-  `MobileNumber` bigint(10) DEFAULT NULL,
+  `MobileNumber` varchar(10) DEFAULT NULL,
   `Password` varchar(200) DEFAULT NULL,
   `RegDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `UserRole` varchar(20)
   
-  foreign key(Position) references UserRole(ID)
 ) ;
 
 create table `IncomeSource`(
-	`ID` int(10) not null,
+	`ID` int ,
     `InSource` varchar (150) default null
 );
 
 CREATE TABLE `Income` (
-  `ID` int(10) NOT NULL,
-  `UserId` int(10) NOT NULL,
+  `ID` int ,
+  `UserId` int NOT NULL,
   `IncomeDate` date DEFAULT NULL,
-  `IncomeItem` int(10) DEFAULT NULL,
+  `IncomeItem` int DEFAULT NULL,
   `IncomeCost` Decimal DEFAULT NULL,
   `NoteDate` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  
   foreign key(UserId) references Users(ID),
   foreign key (IncomeItem) references IncomeSource(ID)
 ) ;
 --
 -- Dumping data for table `tbluser`
 --
-
--- INSERT INTO `Users` (`ID`, `FullName`,`Position` `Email`, `MobileNumber`, `Password`, `RegDate`) VALUES
--- (1, 'Admin',``, 'admin@gmail.com', 5655555655, '', '2019-05-15 08:52:27'),
--- (2, 'Nguyễn Trung Vũ', 'a@gmail.com', 8989898897, '81dc9bdb52d04dc20036dbd8313ed055', '2019-05-15 08:52:27'),
+-- insert into `Users` (`ID`,`FullName`) values
+-- (1, 'Food & Drink'),
+insert into `Users` (`ID`, `FullName`,`UserRole`, `Email`, `MobileNumber`, `Password`, `RegDate`) VALUES
+(1, 'Nguyễn Trung Vũ','ROLE_ADMIN', 'a@gmail.com', 8989898897, '81dc9bdb52d04dc20036dbd8313ed055', '2019-05-15 08:52:27');
 -- (3, '', 'khusi@gmail.com', 5645798897, '202cb962ac59075b964b07152d234b70', '2019-05-15 08:52:27'),
 -- (4, 'Shantanu Bhardwaj', 'shan@gmail.com', 7895641236, '202cb962ac59075b964b07152d234b70', '2019-05-17 05:13:23'),
 -- (8, 'Test', 'test@gmail.com', 5656556565, '202cb962ac59075b964b07152d234b70', '2019-05-17 05:34:16'),
@@ -185,13 +187,13 @@ ALTER TABLE `Expense`
   MODIFY `ID` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 
 ALTER TABLE `ExpenseItem`
-  MODIFY `ID` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
+  MODIFY `ID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 
 ALTER TABLE `UserRole`
   MODIFY `ID` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
   
 ALTER TABLE `IncomeSource`
-  MODIFY `ID` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
+  MODIFY `ID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 
 ALTER TABLE `Income`
   MODIFY `ID` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
@@ -200,7 +202,7 @@ ALTER TABLE `Income`
 -- AUTO_INCREMENT for table `tbluser`
 --
 ALTER TABLE `Users`
-  MODIFY `ID` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `ID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

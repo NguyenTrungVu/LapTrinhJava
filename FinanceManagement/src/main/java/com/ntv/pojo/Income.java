@@ -9,6 +9,8 @@ import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -17,8 +19,6 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -36,20 +36,17 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Income.findByNoteDate", query = "SELECT i FROM Income i WHERE i.noteDate = :noteDate")})
 public class Income implements Serializable {
 
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "IncomeCost")
-    private long incomeCost;
-
     private static final long serialVersionUID = 1L;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @NotNull
     @Column(name = "ID")
     private Integer id;
     @Column(name = "IncomeDate")
     @Temporal(TemporalType.DATE)
     private Date incomeDate;
+    @Column(name = "IncomeCost")
+    private Long incomeCost;
     @Column(name = "NoteDate")
     @Temporal(TemporalType.TIMESTAMP)
     private Date noteDate;
@@ -83,6 +80,13 @@ public class Income implements Serializable {
         this.incomeDate = incomeDate;
     }
 
+    public Long getIncomeCost() {
+        return incomeCost;
+    }
+
+    public void setIncomeCost(Long incomeCost) {
+        this.incomeCost = incomeCost;
+    }
 
     public Date getNoteDate() {
         return noteDate;
@@ -131,14 +135,6 @@ public class Income implements Serializable {
     @Override
     public String toString() {
         return "com.ntv.pojo.Income[ id=" + id + " ]";
-    }
-
-    public long getIncomeCost() {
-        return incomeCost;
-    }
-
-    public void setIncomeCost(long incomeCost) {
-        this.incomeCost = incomeCost;
     }
     
 }
