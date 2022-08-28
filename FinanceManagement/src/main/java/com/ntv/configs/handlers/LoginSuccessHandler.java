@@ -20,7 +20,7 @@ import org.springframework.stereotype.Component;
  * @author inmac
  */
 @Component
-public class LoginSuccessHander implements AuthenticationSuccessHandler{
+public class LoginSuccessHandler implements AuthenticationSuccessHandler{
     @Autowired
     private UserService userDetailService;
     
@@ -28,7 +28,7 @@ public class LoginSuccessHander implements AuthenticationSuccessHandler{
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication a) throws IOException, ServletException {
         Users u = this.userDetailService.getUserByUsername(a.getName());
         request.getSession().setAttribute("currentUser", u);
-        response.sendRedirect("/FinanceManagement");
+        response.sendRedirect("/FinanceManagement/home");
     }
     
 }

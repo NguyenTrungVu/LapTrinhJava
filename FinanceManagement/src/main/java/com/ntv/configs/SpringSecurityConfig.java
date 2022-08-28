@@ -6,7 +6,7 @@ package com.ntv.configs;
 
 import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
-import com.ntv.configs.handlers.LoginSuccessHander;
+import com.ntv.configs.handlers.LoginSuccessHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -56,15 +56,15 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.formLogin().loginPage("/login")
+        http.formLogin().loginPage("/")
                 .usernameParameter("username")
                 .passwordParameter("password");
-        http.formLogin().defaultSuccessUrl("/")
-                .failureUrl("/login?error");
+        http.formLogin().defaultSuccessUrl("/home")
+                .failureUrl("/?error");
         http.formLogin().successHandler(this.loginSuccessHandler);
-        http.logout().logoutSuccessUrl("/login");
+        http.logout().logoutSuccessUrl("/");
         http.exceptionHandling()
-                .accessDeniedPage("/login?accessDenied");
+                .accessDeniedPage("/?accessDenied");
         http.authorizeRequests().antMatchers("/").permitAll().antMatchers("/admin/**").access("hasRole('ROLE_ADMIN')");
 
         http.csrf().disable();
@@ -83,6 +83,6 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Bean
     public AuthenticationSuccessHandler loginSuccessHandler() {
-        return new LoginSuccessHander();
+        return new LoginSuccessHandler();
     }
 }

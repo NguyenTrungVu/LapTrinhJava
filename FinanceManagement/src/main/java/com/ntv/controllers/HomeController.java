@@ -32,7 +32,8 @@ public class HomeController {
         model.addAttribute("currentUser", session.getAttribute("currentUser"));
     }
     
-    @RequestMapping(value= "/")
+   
+    @RequestMapping(value= "/home")
     public String home(){
         return "home";
     }

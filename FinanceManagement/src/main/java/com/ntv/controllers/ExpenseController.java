@@ -35,7 +35,7 @@ public class ExpenseController {
 //        }
         if(this.expenseService.addExpense(e) == true){
             model.addAttribute("errMsg", "Them hoa don chi phi thanh cong!!");
-            return "redirect:/";
+            return "redirect:/home";
 
         }
         return "add-expense";

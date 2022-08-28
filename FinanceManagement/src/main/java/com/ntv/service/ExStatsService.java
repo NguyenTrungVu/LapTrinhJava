@@ -13,5 +13,5 @@ import java.util.List;
  */
 public interface ExStatsService {
     List<Object[]> exStats();
-    List<Object[]> expenseStats( int month, int quarter, int year);
+    List<Object[]> expenseStats( ExpenseItem e, int month,  int year);
 }

@@ -8,7 +8,7 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 
-<c:url value="/login" var="action"/>
+<c:url value="/" var="action"/>
 <div class="container">
     <h1 class="text-info text-center">Dang Nhap</h1>
     

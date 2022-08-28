@@ -71,19 +71,19 @@ insert into `ExpenseItem` (`ID`,`ItemName`) values
 (9, 'Insurances'),
 (10, 'Gifts & Donations');
 
-insert into `Expense` (`ID`, `UserId`, `ExpenseDate`, `ExpenseItem`, `ExpenseCost`, `NoteDate`) VALUES
-(1, 11, '2019-05-15', '1', '63000', NULL),
-(2, 12, '2019-05-15', '2', '52000', '2019-05-15 10:06:19'),
-(3, 12, '2019-05-15', '2', '52000', '2019-05-15 10:07:08'),
-(4, 12, '2019-05-14', '1', '83000', '2019-05-15 10:07:27'),
-(5, 12, '2019-05-14', '3', '11000', '2019-05-15 10:07:49'),
-(6, 12, '2019-05-12', '3', '89000', '2019-05-15 10:08:09'),
-(7,11, '2019-05-10', '5', '56000', '2019-05-15 10:08:26'),
-(8, 11, '2019-04-24', '5', '102000', '2019-05-15 10:08:44'),
-(9, 11, '2019-05-08', '5', '89000', '2019-05-15 10:08:57'),
-(10, 11, '2018-12-19', '3', '112000', '2019-05-15 10:09:34'),
-(11, 11, '2018-12-19', '2', '56000', '2019-05-15 10:09:52'),
-(13, 11, '2018-12-20', '1', '30000', '2019-05-15 10:15:47');
+insert into `Expense` (`ID`, `UserId`, `ExpenseDate`, `ExpenseItem`, `ExpenseCost`, `NoteDate`, `Note`) VALUES
+(1, 39, '2019-05-15', '1', '63000', NULL,'sandwich'),
+(2, 39, '2019-05-15', '2', '52000', '2019-05-15 10:06:19', 'T-shirt'),
+(3, 39, '2019-05-15', '2', '52000', '2019-05-15 10:07:08', 'T-shirt'),
+(4, 39, '2019-05-14', '1', '83000', '2019-05-15 10:07:27','sandwich'),
+(5, 39, '2019-05-14', '3', '11000', '2019-05-15 10:07:49', 'Bus ticket'),
+(6, 38, '2019-05-12', '3', '89000', '2019-05-15 10:08:09', 'Bus ticket'),
+(7,38, '2019-05-10', '5', '56000', '2019-05-15 10:08:26', 'drink water'),
+(8, 38, '2019-04-24', '5', '102000', '2019-05-15 10:08:44', 'shower'),
+(9, 38, '2019-05-08', '5', '89000', '2019-05-15 10:08:57', 'drink water'),
+(10, 38, '2018-12-19', '3', '112000', '2019-05-15 10:09:34','Bus ticket'),
+(11, 39, '2018-12-19', '2', '56000', '2019-05-15 10:09:52', 'T-shirt'),
+(13, 39, '2018-12-20', '1', '30000', '2019-05-15 10:15:47', 'sandwich');
 -- (14, 2, '2019-05-14', 'Milk', '360', '2019-05-15 10:21:31'),
 -- (15, 3, '2019-05-15', 'Milk', '123', '2019-05-15 10:29:56'),
 -- (16, 3, '2019-05-15', 'Household Items', '360', '2019-05-15 10:30:06'),
@@ -184,7 +184,7 @@ ALTER TABLE `IncomeSource`
 -- AUTO_INCREMENT for table `tblexpense`
 --
 ALTER TABLE `Expense`
-  MODIFY `ID` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
+  MODIFY `ID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 
 ALTER TABLE `ExpenseItem`
   MODIFY `ID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
@@ -196,7 +196,7 @@ ALTER TABLE `IncomeSource`
   MODIFY `ID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 
 ALTER TABLE `Income`
-  MODIFY `ID` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
+  MODIFY `ID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 
 --
 -- AUTO_INCREMENT for table `tbluser`

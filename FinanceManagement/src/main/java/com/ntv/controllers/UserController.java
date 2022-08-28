@@ -25,7 +25,7 @@ public class UserController {
     @Autowired
     private UserService userDetailService; 
     
-    @RequestMapping(value= "/login")
+    @RequestMapping(value= "/")
     public String login(){
         return "login";
     }
@@ -42,7 +42,7 @@ public class UserController {
             model.addAttribute("errMsg", "Mat khau khong khop!!");
         else{
             if(this.userDetailService.addUser(user) == true){
-                return "redirect:/login";
+                return "redirect:/";
             }
             model.addAttribute("errMsg", "Co loi xay ra, vui long quay lai sau!!");
         }

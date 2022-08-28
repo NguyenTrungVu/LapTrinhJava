@@ -15,23 +15,28 @@
         <div class="collapse navbar-collapse" id="mynavbar">
             <ul class="navbar-nav me-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="<c:url value="/"/>">Home</a>
+                    <c:if test="${pageContext.request.userPrincipal.name != null}">
+                        <a class="nav-link" href="<c:url value="/home"/>">Home</a>
+                    </c:if>
+
                 </li>
 
                 <li class="dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Expenses</a>
-                    <ul class="dropdown-menu">
-                        <c:forEach items="${expenseitem}" var ="c">
+                    <c:if test="${pageContext.request.userPrincipal.name != null}">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Expenses</a>
+                        <ul class="dropdown-menu">
+                            <c:forEach items="${expenseitem}" var ="c">
 
-                            <li>
-                                <c:url value="/" var="ItemPath">
-                                    <c:param name="expenseSet" value="${c.id}" />
-                                </c:url>
-                                <a class="dropdown-item" href="${ItemPath}">${c.itemName}</a>
+                                <li>
+                                    <c:url value="/" var="ItemPath">
+                                        <c:param name="expenseSet" value="${c.id}" />
+                                    </c:url>
+                                    <a class="dropdown-item" href="${ItemPath}">${c.itemName}</a>
 
-                            </li>
-                        </c:forEach>
-                    </ul>
+                                </li>
+                            </c:forEach>
+                        </ul>
+                    </c:if>
                 </li>
 
                 <c:if test="${pageContext.request.userPrincipal.name == null}">
@@ -41,22 +46,22 @@
                         </a>
                     </li>
                     <li>
-                        <a class="nav-link" href="<c:url value="/login" />">
+                        <a class="nav-link" href="<c:url value="/" />">
                             <i class="fa fa-user-check"></i> Dang Nhap</a>
                     </li>
                 </c:if>
                 <c:if test="${pageContext.request.userPrincipal.name != null}">
                     <li class="nav-item">
                         <a class="nav-link" href="<c:url value="/"/>">
-                           <c:if test="${currentUser.avatar != null}">
-                               <img src="${currentUser.avatar}" style="width:20px;" class="rounded-circle"/>
-                           </c:if>
-                           <c:if test="${currentUser.avatar  == null}">
-                               <i class="fa fa-user-check" ></i>
-                           </c:if>
+                            <c:if test="${currentUser.avatar != null}">
+                                <img src="${currentUser.avatar}" style="width:20px;" class="rounded-circle"/>
+                            </c:if>
+                            <c:if test="${currentUser.avatar  == null}">
+                                <i class="fa fa-user-check" ></i>
+                            </c:if>
 
 
-                           ${pageContext.request.userPrincipal.name}
+                            ${pageContext.request.userPrincipal.name}
                         </a>
                     </li>
                     <li class="nav-item">

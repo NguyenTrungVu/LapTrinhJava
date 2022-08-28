@@ -7,9 +7,11 @@ package com.ntv.configs;
 import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
 import com.ntv.formatters.ExpenseItemFormatter;
+import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.format.FormatterRegistry;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
@@ -38,8 +40,8 @@ public class WebApplicationContextConfig implements WebMvcConfigurer {
             DefaultServletHandlerConfigurer configurer) {
         configurer.enable();
     }
-    
-     @Override
+
+    @Override
     public void addFormatters(FormatterRegistry registry) {
         registry.addFormatter(new ExpenseItemFormatter());
     }
@@ -63,5 +65,13 @@ public class WebApplicationContextConfig implements WebMvcConfigurer {
         return resolver;
     }
 
-   
+    @Bean
+    public MessageSource messageSource() {
+        ResourceBundleMessageSource resource
+                = new ResourceBundleMessageSource();
+        resource.setBasename("messages");
+
+        return resource;
+    }
+
 }

@@ -26,7 +26,7 @@ public class ExStatsServiceImpl implements ExStatsService{
     }
 
     @Override
-    public List<Object[]> expenseStats( int month, int quarter, int year) {
-        return this.exStatsRepository.expenseStats( month, quarter, year);
+    public List<Object[]> expenseStats( ExpenseItem e,int month, int year) {
+        return this.exStatsRepository.expenseStats(e, month,  year);
     }
 }

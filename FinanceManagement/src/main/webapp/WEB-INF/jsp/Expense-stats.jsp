@@ -89,17 +89,18 @@
                 <c:url value="/stats" var="action" />
                 <form  action="${action}" >
                  
+                 
+                    <div class="mb-3 mt-3"
+                        <label class="form-label">Khoan Chi:</label>
+                        <select type="email" class="form-control" id="item"  name="item" path="item">
+                            <c:forEach items="${expenseitem}" var="i">
+                                <option value="${i.id}">${i.itemName}</option>
+                            </c:forEach>
+                        </select>
+                    </div>
                     <div class="mb-3 mt-3">
                         <label class="form-label">Chi trong thang:</label>
                         <input class="form-control" type="number" placeholder="Enter month" id="month" name="month"/>
-                    </div>
-                    <div class="mb-3 mt-3"
-                        <label class="form-label">Chi trong quy:</label>
-                        <select type="email" class="form-control" id="quarter" placeholder="Enter quarter" name="quarter">
-                            <c:forEach begin="1" end="4" var="i">
-                                <option value="${i}">${i}</option>
-                            </c:forEach>
-                        </select>
                     </div>
                     <div class="mb-3 mt-3">
                         <label class="form-label">Chi trong nam:</label>
@@ -115,7 +116,7 @@
                     <table class="table table-hover table-striped">
                         <thead>
                             <tr class="table-success">
-                                <th>Ten danh muc</th>
+                               
                                 <th>Ngay chi phi</th>
                                 <th>Tong tien</th>
                             </tr>
@@ -124,9 +125,9 @@
                             <c:forEach items="${expenseStats}" var="c">
                                 <tr>
                                     <td>${c[0]}</td>
-                                    <td>${c[1]}</td>
+                                   
                                     <td>
-                                        <fmt:formatNumber type="number" value="${c[2]}" maxFractionDigits="3" /> VND
+                                        <fmt:formatNumber type="number" value="${c[1]}" maxFractionDigits="3" /> VND
                                     </td>
                                 </tr>
                             </c:forEach>
@@ -155,6 +156,7 @@
     let exInfo = [];
     let exLabels2 = [];
     let exInfo2 = [];
+    let exTime2 = [];
     <c:forEach items="${exStats}" var="e">
     exLabels.push('${e[1]}');
     exInfo.push(${e[2]});
@@ -162,11 +164,11 @@
 
     <c:forEach items="${expenseStats}" var="c">
     exLabels2.push('${c[0]}');
-    exInfo2.push(${c[2]});
+    exInfo2.push(${c[1]});
     </c:forEach>
 
     window.onload = function () {
         exChart(exLabels, exInfo);
-        expenseChart(exLabels2, exInfo2);
+        expenseChart(exLabels2, exInfo2, exTime2);
     }
 </script>

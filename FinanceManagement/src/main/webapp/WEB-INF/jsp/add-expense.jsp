@@ -13,7 +13,7 @@
     <h1 class="text-center text-info">Add Expense</h1>
     <c:url value="/expense" var="action" />
     <sec:authorize access="!isAuthenticated()">
-        <strong>Vui long <a href="<c:url value="/login" />">dang nhap</a> de them phieu chi!!!</strong>
+        <strong>Vui long <a href="<c:url value="/" />">dang nhap</a> de them phieu chi!!!</strong>
     </sec:authorize>
     <sec:authorize access="isAuthenticated()">
         <form:form method="post" action="${action}" modelAttribute="expense">

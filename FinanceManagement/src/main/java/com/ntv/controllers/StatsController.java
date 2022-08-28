@@ -24,11 +24,11 @@ public class StatsController {
     
     @GetMapping("/stats")
     public String stats(Model model,
-            @RequestParam(value = "quarter", defaultValue = "0") int quarter,
+            @RequestParam(value = "item", required = false) ExpenseItem item ,
             @RequestParam(value = "year", defaultValue = "2022") int year ,
             @RequestParam(value = "month", defaultValue = "0") int month ) {
         model.addAttribute("exStats", this.exStatsService.exStats());
-        model.addAttribute("expenseStats", this.exStatsService.expenseStats( month, quarter, year));
+        model.addAttribute("expenseStats", this.exStatsService.expenseStats(item, month,  year));
         return "expense-stats";
     }
 }
