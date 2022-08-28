@@ -28,7 +28,7 @@
                             <c:forEach items="${expenseitem}" var ="c">
 
                                 <li>
-                                    <c:url value="/" var="ItemPath">
+                                    <c:url value="/home" var="ItemPath">
                                         <c:param name="expenseSet" value="${c.id}" />
                                     </c:url>
                                     <a class="dropdown-item" href="${ItemPath}">${c.itemName}</a>
@@ -72,8 +72,8 @@
 
             </ul>
             <form class="d-flex">
-                <input class="form-control me-2" type="text" placeholder="Search">
-                <button class="btn btn-primary" type="button">Search</button>
+                <input class="form-control me-2" type="text" placeholder="Search" name="kw">
+                <button class="btn btn-primary" type="submit">Search</button>
             </form>
         </div>
     </div>

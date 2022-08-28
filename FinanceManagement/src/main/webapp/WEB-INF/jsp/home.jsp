@@ -14,7 +14,6 @@
     <strong>Vui long <a href="<c:url value="/" />">dang nhap</a> de su dung cac tinh nang cua he thong!!!</strong>
 </sec:authorize>
 <sec:authorize access="isAuthenticated()">
-    <script src="<c:url value="/resources/js/toggle-button.js"/>"></script>
     <div class="row">
         <div class="col-md-3">
             <div id="accordion">
@@ -63,6 +62,17 @@
                 </section>
                 <section>
                     <h1>Total Expense</h1>
+                </section>
+
+                <section class="page-contain">
+                    <c:forEach items="${expenses}" var="e">
+                        <a href="<c:url value="/stats"/>" class="data-card">
+                            <h3 class="costex"> <fmt:formatNumber type = "number" maxFractionDigits = "3" value = "${e.expenseCost}" /> VND</h3>
+                            <h4>${e.note}</h4>
+                            <p>${e.noteDate}</p>
+                          
+                        </a>
+                    </c:forEach>
                 </section>
 
             </div>

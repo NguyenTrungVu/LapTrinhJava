@@ -48,23 +48,35 @@ public class ExpenseRepositoryImpl implements ExpenseRepository {
     @Override
     public List<Expense> getExpense(Map<String, String> params, int page) {
         Session session = this.sessionFactory.getObject().getCurrentSession();
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         CriteriaBuilder b = session.getCriteriaBuilder();
         CriteriaQuery<Expense> e = b.createQuery(Expense.class);
-        Root root = e.from(Expense.class);
-        e.select(root);
-
+        Root rE = e.from(Expense.class);
+        Root rU = e.from(Users.class);
+        
+        e.where(b.equal(rE.get("userId"), rU.get("id")),
+                b.equal(rE.get("userId"), this.userRepository.getUsers(authentication.getName())));
+        e.select(rE);
+        Query query = session.createQuery(e);
         if (params != null) {
             List<Predicate> predicates = new ArrayList<>();
             String expenseId = params.get("expenseSet");
             if (expenseId != null) {
-                Predicate p = b.equal(root.get("expenseSet"), Integer.parseInt(expenseId));
+                Predicate p = b.equal(rE.get("expenseItem"), Integer.parseInt(expenseId));
                 predicates.add(p);
             }
+            
+            String kw = params.get("kw");
+            if (kw != null && !kw.isEmpty()) {
+                Predicate p = b.like(rE.get("note").as(String.class), String.format("%%%s%%", kw));
+                predicates.add(p);
+            }
+            
             e.where(predicates.toArray(new Predicate[]{}));
         }
-        e.orderBy(b.desc(root.get("id")));
+        e.orderBy(b.desc(rE.get("id")));
 
-        Query query = session.createQuery(e);
+        
         if (page > 0) {
             int size = Integer.parseInt(env.getProperty("page.size").toString());
             int start = (page - 1) * size;
