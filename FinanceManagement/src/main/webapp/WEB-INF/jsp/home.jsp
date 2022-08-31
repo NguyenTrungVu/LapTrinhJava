@@ -56,6 +56,7 @@
         </div>
         <div class="col-md-9">
             <div class="container">
+
                 <section>
                     <h1>Total Income</h1>
 
@@ -64,15 +65,42 @@
                     <h1>Total Expense</h1>
                 </section>
 
+
+
                 <section class="page-contain">
+                    <div class="d-flex justify-content-between">
+                        <ul class="pagination">
+                            <c:forEach begin="1" end="${Math.ceil(expenseCounter/10)}" var="i">
+                                <c:url value="/home" var="c">
+                                    <c:param value="${i}" name="page"  />
+                                </c:url>
+                                <li class="page-item"><a class="page-link" href="${c}">${i}</a></li>
+                                </c:forEach>
+                        </ul>
+                        
+                            <form >
+                            <input class="form-control" list="listamount" name="size" id="size">
+                            <datalist id="listamount">
+                                <option value="1">
+                                <option value="5">
+                                <option value="50">
+                               
+                            </datalist>    
+                            <button type="submit" class="btn btn-primary mt-3">Submit</button>
+                        </form>
+                        
+                        
+                    </div>
+
                     <c:forEach items="${expenses}" var="e">
                         <a href="<c:url value="/stats"/>" class="data-card">
                             <h3 class="costex"> <fmt:formatNumber type = "number" maxFractionDigits = "3" value = "${e.expenseCost}" /> VND</h3>
                             <h4>${e.note}</h4>
                             <p>${e.noteDate}</p>
-                          
+
                         </a>
                     </c:forEach>
+
                 </section>
 
             </div>

@@ -6,7 +6,7 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+<nav class="navbar navbar-expand-sm navbar-dark bg-dark" style="position: fixed; top: 0; z-index: 10; width: 100%">
     <div class="container-fluid">
         <a class="navbar-brand" href="javascript:void(0)">Logo</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mynavbar">
@@ -32,6 +32,23 @@
                                         <c:param name="expenseSet" value="${c.id}" />
                                     </c:url>
                                     <a class="dropdown-item" href="${ItemPath}">${c.itemName}</a>
+
+                                </li>
+                            </c:forEach>
+                        </ul>
+                    </c:if>
+                </li>
+                <li class="dropdown">
+                    <c:if test="${pageContext.request.userPrincipal.name != null}">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Incomes</a>
+                        <ul class="dropdown-menu">
+                            <c:forEach items="${incomeitem}" var ="c">
+
+                                <li>
+                                    <c:url value="/home" var="incomePath">
+                                        <c:param name="incomeSet" value="${c.id}" />
+                                    </c:url>
+                                    <a class="dropdown-item" href="${incomePath}">${c.inSource}</a>
 
                                 </li>
                             </c:forEach>

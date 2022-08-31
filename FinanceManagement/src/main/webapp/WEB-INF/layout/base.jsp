@@ -22,16 +22,20 @@
         <link rel="stylesheet" href="resources/css/loginform.css"/>
         <link rel="stylesheet" href="resources/css/footer.css"/>
         <link rel="stylesheet" href="resources/css/homecard.css"/>
+        
 
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-        
+
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-        
+
 
     </head>
     <body>
         <tiles:insertAttribute name="header"/>
-        <tiles:insertAttribute name="content"/>
+        <div style="padding:70px 0px 0px 10px;">
+            <tiles:insertAttribute name="content"/>
+        </div>
+
         <tiles:insertAttribute name="footer" />
     </body>
 </html>

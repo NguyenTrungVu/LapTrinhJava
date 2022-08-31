@@ -6,6 +6,7 @@ package com.ntv.controllers;
 
 import com.ntv.service.ExpenseItemService;
 import com.ntv.service.ExpenseService;
+import com.ntv.service.IncomeItemService;
 import java.util.Map;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,19 +31,24 @@ public class HomeController {
     private ExpenseItemService expenseItemService;
     @Autowired
     private ExpenseService expenseService;
+    @Autowired
+    private IncomeItemService incomeItemService; 
     
     @ModelAttribute
     public void commonAtt(Model model, HttpSession session){
         model.addAttribute("expenseitem", this.expenseItemService.getExpenseItem());
         model.addAttribute("currentUser", session.getAttribute("currentUser"));
+        model.addAttribute("incomeitem", this.incomeItemService.getSourceItem());
     }
     
    
     @RequestMapping(value= "/home")
     public String home(Model model, @RequestParam Map<String, String> params){
         int page = Integer.parseInt(params.getOrDefault("page", "1"));
-        model.addAttribute("expenses", this.expenseService.getExpense(params, page));
-//        model.addAttribute("productCounter", this.expenseService.());
+        int size = Integer.parseInt(params.getOrDefault("size", "5"));
+        model.addAttribute("expenses", this.expenseService.getExpense(params, page, size));
+        model.addAttribute("expenseCounter", this.expenseService.countExpense());
+        
         
         return "home";
     }

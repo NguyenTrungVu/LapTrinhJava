@@ -4,12 +4,12 @@
  */
 package com.ntv.repository.impl;
 
-import com.ntv.pojo.Expense;
+
+import com.ntv.pojo.Income;
 import com.ntv.pojo.Users;
-import com.ntv.repository.ExpenseRepository;
+import com.ntv.repository.IncomeRepository;
 import com.ntv.repository.UserRepository;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import javax.persistence.Query;
@@ -20,22 +20,18 @@ import javax.persistence.criteria.Root;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
  * @author inmac
  */
 @Repository
-@PropertySource("classpath:databases.properties")
-@Transactional
-public class ExpenseRepositoryImpl implements ExpenseRepository {
+public class IncomeRepositoryImpl implements IncomeRepository{
 
     @Autowired
     private LocalSessionFactoryBean sessionFactory;
@@ -44,36 +40,32 @@ public class ExpenseRepositoryImpl implements ExpenseRepository {
     
     @Autowired
     private Environment env;
-
+    
     @Override
-    public List<Expense> getExpense(Map<String, String> params, int page, int size) {
+    public List<Income> getIncome(Map<String, String> params, int page, int size) {
         Session session = this.sessionFactory.getObject().getCurrentSession();
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         CriteriaBuilder b = session.getCriteriaBuilder();
-        CriteriaQuery<Expense> e = b.createQuery(Expense.class);
-        Root rE = e.from(Expense.class);
+        CriteriaQuery<Income> e = b.createQuery(Income.class);
+        Root rI = e.from(Income.class);
         Root rU = e.from(Users.class);
         
         Users u = this.userRepository.getUsers(authentication.getName());
-        e.select(rE);
+        e.select(rI);
 //      
         if (params != null) {
             List<Predicate> predicates = new ArrayList<>();
             
             
             if (u.getId() != null) {
-                Predicate p = b.and(b.equal(rE.get("userId"), u),b.equal(rE.get("userId"), rU.get("id")));
-                predicates.add(p);
-            }
-            String expenseId = params.get("expenseSet");
-            if (expenseId != null) {
-                Predicate p = b.equal(rE.get("expenseItem"), Integer.parseInt(expenseId));
+                Predicate p = b.and(b.equal(rI.get("userId"), u),b.equal(rI.get("userId"), rU.get("id")));
                 predicates.add(p);
             }
             
+            
             String kw = params.get("kw");
             if (kw != null && !kw.isEmpty()) {
-                Predicate p = b.like(rE.get("note").as(String.class), String.format("%%%s%%", kw));
+                Predicate p = b.like(rI.get("note").as(String.class), String.format("%%%s%%", kw));
                 predicates.add(p);
             }
             
@@ -81,7 +73,7 @@ public class ExpenseRepositoryImpl implements ExpenseRepository {
             
         }
        
-        e.orderBy(b.desc(rE.get("id")));
+        e.orderBy(b.desc(rI.get("id")));
         Query query = session.createQuery(e);
         
         if (page > 0) {
@@ -97,11 +89,11 @@ public class ExpenseRepositoryImpl implements ExpenseRepository {
     }
 
     @Override
-    public boolean deleteExpenseBill(int id) {
+    public boolean deleteIncomeBill(int id) {
         Session session = this.sessionFactory.getObject().getCurrentSession();
 
         try {
-            Expense p = session.get(Expense.class, id);
+            Income p = session.get(Income.class, id);
             session.delete(p);
 
             return true;
@@ -112,18 +104,18 @@ public class ExpenseRepositoryImpl implements ExpenseRepository {
     }
 
     @Override
-    public Expense getExpenseById(int expenseId) {
-        Session session = this.sessionFactory.getObject().getCurrentSession();
+    public Income getIncomeById(int incomeId) {
+         Session session = this.sessionFactory.getObject().getCurrentSession();
 
-        return session.get(Expense.class, expenseId);
+        return session.get(Income.class, incomeId);
     }
 
     @Override
-    public boolean addExpense(Expense e) {
-        Session session = this.sessionFactory.getObject().getCurrentSession();
+    public boolean addIncome(Income i) {
+         Session session = this.sessionFactory.getObject().getCurrentSession();
        
        try{
-           session.save(e);
+           session.save(i);
            return true;
        }catch(HibernateException ex){
            System.err.println(ex.getMessage());
@@ -133,12 +125,12 @@ public class ExpenseRepositoryImpl implements ExpenseRepository {
     }
 
     @Override
-    public long countExpense() {
-        Session session = this.sessionFactory.getObject().getCurrentSession();
+    public long countIncome() {
+         Session session = this.sessionFactory.getObject().getCurrentSession();
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         
-        Query q = session.createQuery("SELECT COUNT(*) FROM Expense");
+        Query q = session.createQuery("SELECT COUNT(*) FROM Income");
         return Long.parseLong(q.getSingleResult().toString());
     }
-
+    
 }

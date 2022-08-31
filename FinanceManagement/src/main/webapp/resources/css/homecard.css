@@ -37,7 +37,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
     font-weight: 700;
     line-height: 1;
     letter-spacing: 0.1em;
-    margin: 0 0 1.777777778em;
+    margin: 0 0 0.5em;
     transition: color .45s ease;
 }
 .data-card {
@@ -50,7 +50,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
     text-decoration: none;
     background: white;
     margin: 1em;
-    padding: 2.75em 2.5em;
+    padding: 1em 2em;
     box-shadow: 0 1.5em 2.5em -.5em rgba(#000000, .1);
     transition: transform .45s ease, background .45s ease;
 

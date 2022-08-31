@@ -123,7 +123,7 @@ create table `IncomeSource`(
 	`ID` int ,
     `InSource` varchar (150) default null
 );
-
+insert into `IncomeSource` (`ID`, `InSource`) values(1, 'salary'),(2, 'bonus');
 CREATE TABLE `Income` (
   `ID` int ,
   `UserId` int NOT NULL,
@@ -135,6 +135,11 @@ CREATE TABLE `Income` (
   foreign key(UserId) references Users(ID),
   foreign key (IncomeItem) references IncomeSource(ID)
 ) ;
+insert into `Income` (`ID`, `UserId`, `IncomeDate`, `IncomeItem`, `IncomeCost`, `NoteDate`) VALUES
+(1, 39, '2019-05-15', '1', '630000', NULL),
+(2, 39, '2019-05-15', '2', '52000', '2019-05-15 10:06:19'),
+(3, 39, '2019-05-15', '2', '52000', '2019-05-15 10:07:08'),
+(4, 39, '2019-05-14', '1', '830000', '2019-06-15 10:07:27');
 --
 -- Dumping data for table `tbluser`
 --

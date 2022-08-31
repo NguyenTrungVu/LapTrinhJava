@@ -4,19 +4,15 @@
  */
 package com.ntv.service;
 
-import com.ntv.pojo.Expense;
 import com.ntv.pojo.ExpenseItem;
+import com.ntv.pojo.IncomeSource;
 import java.util.List;
-import java.util.Map;
 
 /**
  *
  * @author inmac
  */
-public interface ExpenseService {
-    List<Expense> getExpense(Map<String, String> params, int page, int size);
-    boolean addExpense (Expense e);
-    boolean deleteExpenseBill(int id);
-    Expense getExpenseById(int expenseId);
-    long countExpense();
+public interface IncomeItemService {
+    List<IncomeSource> getSourceItem();
+    IncomeSource getSourceById(int inId);
 }

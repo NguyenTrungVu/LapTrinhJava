@@ -4,7 +4,8 @@
  */
 package com.ntv.repository;
 
-import com.ntv.pojo.Expense;
+
+import com.ntv.pojo.Income;
 import java.util.List;
 import java.util.Map;
 
@@ -12,11 +13,10 @@ import java.util.Map;
  *
  * @author inmac
  */
-public interface ExpenseRepository {
-    List<Expense> getExpense(Map<String, String> params, int page, int size);
-    boolean deleteExpenseBill(int id);
-    Expense getExpenseById(int expenseId);
-    boolean addExpense(Expense e);
-    long countExpense();
-    
+public interface IncomeRepository {
+    List<Income> getIncome(Map<String, String> params, int page, int size);
+    boolean deleteIncomeBill(int id);
+    Income getIncomeById(int incomeId);
+    boolean addIncome(Income i);
+    long countIncome();
 }

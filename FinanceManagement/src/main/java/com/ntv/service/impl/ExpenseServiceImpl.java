@@ -39,8 +39,8 @@ public class ExpenseServiceImpl implements ExpenseService{
     private UserRepository userRepository;
 
     @Override
-    public List<Expense> getExpense(Map<String, String> params, int page) {
-        return this.expenseRepository.getExpense(params, page);
+    public List<Expense> getExpense(Map<String, String> params, int page, int size) {
+        return this.expenseRepository.getExpense(params, page, size);
     }
 
        @Override
@@ -68,6 +68,11 @@ public class ExpenseServiceImpl implements ExpenseService{
             return this.expenseRepository.addExpense(e);
             
         
+    }
+
+    @Override
+    public long countExpense() {
+        return this.expenseRepository.countExpense();
     }
 
     

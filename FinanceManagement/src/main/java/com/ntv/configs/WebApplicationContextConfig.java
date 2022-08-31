@@ -7,6 +7,7 @@ package com.ntv.configs;
 import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
 import com.ntv.formatters.ExpenseItemFormatter;
+import com.ntv.formatters.IncomeItemFormatter;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -44,6 +45,7 @@ public class WebApplicationContextConfig implements WebMvcConfigurer {
     @Override
     public void addFormatters(FormatterRegistry registry) {
         registry.addFormatter(new ExpenseItemFormatter());
+        registry.addFormatter(new IncomeItemFormatter());
     }
 
     @Bean
