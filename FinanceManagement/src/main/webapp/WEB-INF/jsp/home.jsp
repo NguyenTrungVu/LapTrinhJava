@@ -46,9 +46,15 @@
                         </a>
                         <a class="btn" data-bs-toggle="collapse" href="<c:url value="/stats"/>">
                             Detail
-                        </a>
-                        <a href="<c:url value="/addExpense"/>" class="btn" style=" position: absolute; right: -27px;top: 8px; z-index: 1; font-size: 30px; color: green"><i class="fa-solid fa-circle-plus"></i></a>
+                        <c:if test="${pageContext.request.userPrincipal.name == null}">
 
+                            <a href="<c:url value="/"/>" class="btn" style=" position: absolute; right: -27px;top: 8px; z-index: 1; font-size: 30px; color: green"><i class="fa-solid fa-circle-plus"></i></a>
+
+                        </c:if>
+                        <c:if test="${pageContext.request.userPrincipal.name != null}">
+                            <a href="<c:url value="/income"/>" class="btn" style=" position: absolute; right: -27px;top: 8px; z-index: 1; font-size: 30px; color: green"><i class="fa-solid fa-circle-plus"></i></a>
+
+                        </c:if>
                     </div>
 
                 </div>

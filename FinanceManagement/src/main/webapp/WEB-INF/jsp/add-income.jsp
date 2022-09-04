@@ -11,24 +11,24 @@
 <div class="container" style="width:50%;">
 
     <h1 class="text-center text-info">Add Income</h1>
-    <c:url value="/expense" var="action" />
+    <c:url value="/income" var="action" />
     <sec:authorize access="!isAuthenticated()">
         <strong>Vui long <a href="<c:url value="/login" />">dang nhap</a> de them phieu thu!!!</strong>
     </sec:authorize>
     <sec:authorize access="isAuthenticated()">
-        <form:form method="post" action="${action}" modelAttribute="expense">
+        <form:form method="post" action="${action}" modelAttribute="income">
             <div class="mb-3 mt-3">
-                <label for="" class="expenseCost">Amount</label>
-                <form:input type="number" id="expenseCost" placeholder="Enter the amount"  path="expenseCost" />
+                <label for="" class="incomeCost">Amount</label>
+                <form:input type="number" id="incomeCost" placeholder="Enter the amount"  path="incomeCost" />
 
                 <div class="valid-feedback">Valid.</div>
                 <div class="invalid-feedback">Please fill out this field.</div>
             </div>
             <div class="mb-3">
-                <label for="pwd" class="expenseItem">Item</label>
-                <form:select path="expenseItem" class="form-select" id="expenseItem" >
-                    <c:forEach items="${expenseitem}" var="item">
-                        <option value="${item.id}">${item.itemName}</option>
+                <label for="pwd" class="incomeItem">Item</label>
+                <form:select path="incomeItem" class="form-select" id="incomeItem" >
+                    <c:forEach items="${incomeitem}" var="item">
+                        <option value="${item.id}">${item.inSource}</option>
                     </c:forEach>
                 </form:select>
                 <div class="valid-feedback">Valid.</div>

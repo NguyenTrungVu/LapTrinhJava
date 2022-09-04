@@ -20,17 +20,21 @@ import javax.persistence.criteria.Root;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
  * @author inmac
  */
 @Repository
+@PropertySource("classpath:databases.properties")
+@Transactional
 public class IncomeRepositoryImpl implements IncomeRepository{
 
     @Autowired

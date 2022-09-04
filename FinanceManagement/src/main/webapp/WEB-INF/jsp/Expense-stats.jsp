@@ -30,7 +30,7 @@
                     </div>
                     <div class="card">
                         <div class="card-header">
-                            <a class="collapsed btn" data-bs-toggle="collapse" href="#collapseTwo">
+                            <a class="collapsed btn" data-bs-toggle="collapse" href="">
                                 Income</a>
                         </div>
                         <div id="collapseTwo" class="collapse" data-bs-parent="#accordion">

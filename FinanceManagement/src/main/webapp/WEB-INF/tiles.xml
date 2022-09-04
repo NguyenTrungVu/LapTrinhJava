@@ -33,6 +33,11 @@ Software Foundation//DTD Tiles Configuration 3.0//EN"
         <put-attribute name="content"
                        value="/WEB-INF/jsp/add-expense.jsp" />
     </definition>
+     <definition name="add-income" extends="baseLayout">
+        <put-attribute name="title" value="Them chi phi" />
+        <put-attribute name="content"
+                       value="/WEB-INF/jsp/add-income.jsp" />
+    </definition>
      <definition name="expense-stats" extends="baseLayout">
         <put-attribute name="title" value="Thong ke chi phi" />
         <put-attribute name="content"
